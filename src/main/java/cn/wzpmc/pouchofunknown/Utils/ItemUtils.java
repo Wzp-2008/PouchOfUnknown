@@ -10,12 +10,15 @@ import java.util.Objects;
 public class ItemUtils {
     public static int getPouch(PlayerInventory playerInventory){
         int result = -1;
+        int r = 0;
         for (ItemStack itemStack : playerInventory.mainInventory) {
             ResourceLocation registryName = itemStack.getItem().getRegistryName();
             ResourceLocation resourceLocation = new ResourceLocation("pouchofunknown","pouch");
             if(Objects.equals(registryName, resourceLocation)) {
-                result = playerInventory.getSlotFor(itemStack);
+                result = r;
+                break;
             }
+            r++;
         }
         return result;
     }

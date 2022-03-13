@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -30,8 +31,8 @@ public class Pouchofunknown {
         MinecraftForge.EVENT_BUS.register(this);
         ItemLoader.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
-
-    private void OnPlayerPickupItem(EntityItemPickupEvent event){
+    @SubscribeEvent
+    public void OnPlayerPickupItem(EntityItemPickupEvent event){
         System.out.println("pickup");
         ItemStack item = event.getItem().getItem();
         PlayerEntity player = event.getPlayer();
