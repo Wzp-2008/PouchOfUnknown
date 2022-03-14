@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -31,12 +32,13 @@ public class Pouchofunknown {
         MinecraftForge.EVENT_BUS.register(this);
         ItemLoader.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGH)
     public void OnPlayerPickupItem(EntityItemPickupEvent event){
         System.out.println("pickup");
         ItemStack item = event.getItem().getItem();
         PlayerEntity player = event.getPlayer();
         Restriction restriction = RestrictionManager.INSTANCE.getRestriction(player,item);
+        LOGGER.info(restriction);
         if (restriction != null && restriction.shouldPreventPickup()){
             int i = ItemUtils.getPouch(player.inventory);
             if (i == -1){
